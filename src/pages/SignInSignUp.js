@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import InputCom from '../components/Input'
-
+import Button from "../components/Button";
 function SignInSignUp() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
    const [confirmPassword, setConfirmPassword] = useState("");
-
+  const handleSignup = () => {
+    console.log("Signup");
+   }
   return (
     <div>
       <Header />
@@ -30,18 +32,18 @@ function SignInSignUp() {
         <InputCom
           state={Password}
           setState={setPassword}
-          placeholder="Full Name"
+          placeholder="Password"
           type="password"
           required={true}
         />
         <InputCom
           state={confirmPassword}
           setState={setConfirmPassword}
-          placeholder="Full Name"
+          placeholder="Confirm Password"
           type="password"
           required={true}
         />
-        <button>Sign In</button>
+        <Button text="Signup" onClick={handleSignup} />
       </div>
     </div>
   );
