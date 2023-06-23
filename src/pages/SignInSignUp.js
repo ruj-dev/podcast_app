@@ -2,48 +2,19 @@ import React, { useState } from 'react'
 import Header from '../components/Header'
 import InputCom from '../components/Input'
 import Button from "../components/Button";
+import SignUpForm from '../components/SignupComponent';
+import LoginCom from '../components/LoginCom';
 function SignInSignUp() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-   const [confirmPassword, setConfirmPassword] = useState("");
-  const handleSignup = () => {
-    console.log("Signup");
-   }
+  
+  const [flag, setFlag] = useState(false);
+ 
   return (
     <div>
       <Header />
       <div className="input-wrapper">
-        <h1>Signup</h1>
-        <InputCom
-          state={fullName}
-          setState={setFullName}
-          placeholder="Full Name"
-          type="text"
-          required={true}
-        />
-        <InputCom
-          state={email}
-          setState={setEmail}
-          placeholder="Email"
-          type="email"
-          required={true}
-        />
-        <InputCom
-          state={Password}
-          setState={setPassword}
-          placeholder="Password"
-          type="password"
-          required={true}
-        />
-        <InputCom
-          state={confirmPassword}
-          setState={setConfirmPassword}
-          placeholder="Confirm Password"
-          type="password"
-          required={true}
-        />
-        <Button text="Signup" onClick={handleSignup} />
+        {!flag ? <h1>Signup</h1> : <h1>Login</h1>}
+        {!flag ? <SignUpForm /> : <LoginCom/>}
+        {!flag ? <p onClick={() =>setFlag(!flag)}>Click here if you already have an account. Login.</p> : <p onClick={() =>setFlag(!flag)}>If you don't have an account ? click here to SignUp</p>}
       </div>
     </div>
   );
