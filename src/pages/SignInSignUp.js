@@ -13,8 +13,16 @@ function SignInSignUp() {
       <Header />
       <div className="input-wrapper">
         {!flag ? <h1>Signup</h1> : <h1>Login</h1>}
-        {!flag ? <SignUpForm /> : <LoginCom/>}
-        {!flag ? <p onClick={() =>setFlag(!flag)}>Click here if you already have an account. Login.</p> : <p onClick={() =>setFlag(!flag)}>If you don't have an account ? click here to SignUp</p>}
+        {!flag ? <SignUpForm /> : <LoginCom />}
+        {!flag ? (
+          <p style={{ cursor: "pointer" }} onClick={() => setFlag(!flag)}>
+            Click here if you already have an account. Login.
+          </p>
+        ) : (
+          <p style={{ cursor: "pointer" }} onClick={() => setFlag(!flag)}>
+            If you don't have an account ? click here to SignUp
+          </p>
+        )}
       </div>
     </div>
   );
