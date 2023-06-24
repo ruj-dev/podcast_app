@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import InputCom from '../components/Input'
-import Button from "../components/Button";
 import SignUpForm from '../components/SignupComponent';
 import LoginCom from '../components/LoginCom';
 function SignInSignUp() {
