@@ -2,20 +2,32 @@ import React, { useState } from 'react'
 import InputComponent from "../Input";
 import Button from "../Button";
 import FileComponent from '../FileComponent/FileComponent';
-
+import { toast } from "react-toastify";
 function CreateAPodcastForm() {
 
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
    const [displayImage, setDisplayImage] = useState();
   const [bannerImage, setBannerImage] = useState();
+  const bannerHandleFnc = (file) => {
+    setBannerImage(file);
+    
+  }
+  const displayHandleFnc = (file) => {
+    setDisplayImage(file);
+  };
   const handleCreatePodcast = () => {
-    console.log("createPodcast");
+    if (title && desc && bannerImage && displayImage) {
+      
+      
+    } else {
+      toast.error("Please fill all the values");
+    }
+   
   }
 
   return (
-    <div>
-      
+    <>
       <InputComponent
         state={title}
         setState={setTitle}
@@ -30,10 +42,18 @@ function CreateAPodcastForm() {
         type="text"
         required={true}
       />
-      <FileComponent></FileComponent>
+      <FileComponent
+        accept={"image/*"}
+        id="banner-image-input"
+        filehandlefn={bannerHandleFnc}
+      ></FileComponent>
+      <FileComponent
+        accept={"image/*"}
+        id="display-image-input"
+        filehandlefn={displayHandleFnc}
+      ></FileComponent>
       <Button text="Create a podcast" onClick={handleCreatePodcast}></Button>
-     
-    </div>
+    </>
   );
 }
 
