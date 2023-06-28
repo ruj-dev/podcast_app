@@ -4,14 +4,18 @@ import './style.css'
 function Header() {
   const location = useLocation();
   const currentLocation = location.pathname;
+  console.log("path", currentLocation);
   return (
     <div className="nav">
       <div className="gradient"></div>
       <div className="links">
-        <Link to="/SignInSignup" className={currentLocation=="/"?"active":""}>Signup </Link>
-        <Link to="/Podcasts">Podcasts</Link>
-        <Link to="/Start-a-podcast">Start a podcast</Link>
-        <Link to="/Profile">Profile</Link>
+        <Link
+          to="/" className={currentLocation == "/" ? "active" : ""}>Signup </Link>
+        <Link
+          to="/Podcasts">Podcasts</Link>
+        <Link
+          to="/create-a-podcast" className={currentLocation == "/create-a-podcast" ? "active" : ""}>Start a podcast</Link>
+        <Link to="/Profile"className={currentLocation=="/Profile"?"active":""}>Profile</Link>
       </div>
     </div>
   );

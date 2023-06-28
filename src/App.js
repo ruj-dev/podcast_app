@@ -11,6 +11,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { setUser } from "./slices/userSlice";
 import { useDispatch } from "react-redux";
 import PrivateRoutes from './pages/PrivateRoute';
+import CreateAPodcast from './pages/CreateAPodcast';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -49,11 +50,12 @@ function App() {
   return (
     <div className="App">
       <ToastContainer />
-      <Router>
+      <Router>   
         <Routes>
           <Route path="/" element={<SignInSignUp />} />
-          <Route element={ <PrivateRoutes/>}>
-          <Route path="/profile" element={<Profile />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create-a-podcast" element={<CreateAPodcast />} />
           </Route>
         </Routes>
       </Router>
