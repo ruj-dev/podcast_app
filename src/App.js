@@ -12,8 +12,43 @@ import { setUser } from "./slices/userSlice";
 import { useDispatch } from "react-redux";
 import PrivateRoutes from './pages/PrivateRoute';
 import CreateAPodcast from './pages/CreateAPodcast';
+import Podcasts from './pages/Podcasts';
 function App() {
   const dispatch = useDispatch();
+  var cursor;
+  var cursorPointer;
+
+  useEffect(() => {
+    cursor = document.getElementById("cursor");
+    cursorPointer = document.getElementById("cursor-pointer");
+
+    document.body.addEventListener("mousemove", function (e) {
+      return (
+        (cursor.style.left = e.clientX + "px"),
+        (cursor.style.top = e.clientY + "px"),
+        (cursorPointer.style.left = e.clientX + "px"),
+        (cursorPointer.style.top = e.clientY + "px")
+      );
+    });
+
+    document.body.addEventListener("mousedown", function (e) {
+      return (
+        (cursor.style.height = "0.5rem"),
+        (cursor.style.width = "0.5rem"),
+        (cursorPointer.style.height = "3rem"),
+        (cursorPointer.style.width = "3rem")
+      );
+    });
+
+    document.body.addEventListener("mouseup", function (e) {
+      return (
+        (cursor.style.height = "0.3rem"),
+        (cursor.style.width = "0.3rem"),
+        (cursorPointer.style.height = "2rem"),
+        (cursorPointer.style.width = "2rem")
+      );
+    });
+  }, []);
   useEffect(() => {
      const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
        if (user) {
@@ -49,13 +84,16 @@ function App() {
   
   return (
     <div className="App">
+      <div className="cursor" id="cursor" />
+      <div className="cursor-pointer" id="cursor-pointer" />
       <ToastContainer />
-      <Router>   
+      <Router>
         <Routes>
           <Route path="/" element={<SignInSignUp />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-a-podcast" element={<CreateAPodcast />} />
+            <Route path="/podcasts" element={<Podcasts />} />
           </Route>
         </Routes>
       </Router>
