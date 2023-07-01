@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  podcasts: [],
+  podcast: [],
 };
 
-const podcastsSlice = createSlice({
-  name: "podcasts",
+const podcastSlice = createSlice({
+  name: "podcast",
   initialState,
   reducers: {
-    setPodcasts: (state, action) => {
-      state.user = action.payload;
+    setPodcast: (state, action) => {
+      state.podcast = action.payload;
     },
    
   },
 });
 
-export const { setPodcasts } = podcastsSlice.actions;
-export default podcastsSlice.reducer;
+export const { setPodcast } = podcastSlice.actions;
+export default podcastSlice.reducer;

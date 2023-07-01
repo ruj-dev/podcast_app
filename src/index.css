@@ -60,3 +60,10 @@ font-family: 'Inter', sans-serif;
    width: 2rem;
    transition: all 400ms ease-out;
  }
+ .podcasts-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+  flex-wrap: wrap;
+ }
