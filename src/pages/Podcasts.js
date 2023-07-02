@@ -7,6 +7,7 @@ import InputComponent from "../components/Input";
 
 import { setPodcast } from "../slices/podcastSlice";
 import PodcastsCard from '../components/Podcasts/PodcastCard';
+import { Link } from 'react-router-dom';
 function Podcasts() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -55,12 +56,14 @@ function Podcasts() {
                   <div className="podcasts-flex" style={{ marginTop: "2rem" }}>
                     {filteredPodcasts.map((items) => {
                       return (
-                        <PodcastsCard
-                          key={items.id}
-                          id={items.id}
-                          title={items.title}
-                          displayImage={items.displayImage}
-                        />
+                      
+                          <PodcastsCard
+                            key={items.id}
+                            id={items.id}
+                            title={items.title}
+                            displayImage={items.displayImage}
+                          />
+                     
                       );
                     })}
                   </div>

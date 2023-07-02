@@ -6,7 +6,7 @@ import {Link} from "react-router-dom"
 function PodcastsCard({id,title, displayImage }) {
   
   return (
-    <Link to={`podcast/${id}`}>
+    <Link to={`/podcast/${id}`}>
       <div className="podcast-card">
         <img
           className="display-image-podcast"
