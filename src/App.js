@@ -14,6 +14,7 @@ import PrivateRoutes from './pages/PrivateRoute';
 import CreateAPodcast from './pages/CreateAPodcast';
 import Podcasts from './pages/Podcasts';
 import PodcastDetailPage from './pages/PodcastDetailPage';
+import CreateAnEpisode from './pages/CreateAnEpisode';
 function App() {
   const dispatch = useDispatch();
   var cursor;
@@ -96,6 +97,7 @@ function App() {
             <Route path="/create-a-podcast" element={<CreateAPodcast />} />
             <Route path="/podcasts" element={<Podcasts />} />
             <Route path="/podcast/:id" element={<PodcastDetailPage />} />
+            <Route path="/podcast/:id/create-episode" element={<CreateAnEpisode />} />
           </Route>
         </Routes>
       </Router>

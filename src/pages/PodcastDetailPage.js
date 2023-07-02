@@ -4,7 +4,8 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { setPodcast } from '../slices/podcastSlice';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
+import Button from '../components/Button';
 
 function PodcastDetailPage() {
     const { id } = useParams();
@@ -46,7 +47,34 @@ function PodcastDetailPage() {
     <div>
       <Header />
       <div className="input-wrapper" style={{ marginTop: "0rem" }}>
-        {podcast.id && <div> <h1>{podcast.title} </h1></div>}
+        {podcast.id && (
+          <>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <h1 className="podcast-title">{podcast.title}</h1>
+              {podcast.createdBy == auth.currentUser.uid && (
+                <Button
+                  text={"Create Episode"}
+                  onClick={() => {
+                    navigate(`/podcast/${id}/create-episode`);
+                  }}
+                  width={"200px"}
+                ></Button>
+              )}
+            </div>
+            <div className="banner-wrapper">
+              <img alt="Banner " src={podcast.bannerImage} />
+            </div>
+            <p className="podcast-description">{podcast.description}</p>
+            <h1 className="podcast-title-heading">Episodes</h1>
+          </>
+        )}
       </div>
     </div>
   );
