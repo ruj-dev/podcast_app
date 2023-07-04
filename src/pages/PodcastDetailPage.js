@@ -3,9 +3,11 @@ import Header from '../components/Header'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { setPodcast } from '../slices/podcastSlice';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, onSnapshot, query } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import Button from '../components/Button';
+import AudioPlayer from '../components/AudioPlayer';
+import Episodedetail from '../components/EpisodeDetail';
 
 function PodcastDetailPage() {
     const { id } = useParams();
@@ -42,7 +44,27 @@ function PodcastDetailPage() {
           toast.error(e.message);
         }
       };
+      
+useEffect(() => {
+  const unsubscribe = onSnapshot(
+    query(collection(db, "podcasts", id, "episodes")),
+    (querySnapshot) => {
+      const episodesData = [];
+      querySnapshot.forEach((doc) => {
+        episodesData.push({ id: doc.id, ...doc.data() });
+      });
+      setEpisodes(episodesData);
+    },
+    (error) => {
+      console.error("Error fetching episodes:", error);
+    }
+  );
 
+  return () => {
+    unsubscribe();
+  };
+}, [id]);
+  
   return (
     <div>
       <Header />
@@ -55,27 +77,50 @@ function PodcastDetailPage() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 width: "100%",
+                margin: "1rem",
               }}
             >
-              <h1 className="podcast-title">{podcast.title}</h1>
+              <h1 className="podcast-title-heading">{podcast.title}</h1>
               {podcast.createdBy == auth.currentUser.uid && (
                 <Button
+                  width={"200px"}
                   text={"Create Episode"}
                   onClick={() => {
                     navigate(`/podcast/${id}/create-episode`);
                   }}
-                  width={"200px"}
-                ></Button>
+                />
               )}
             </div>
+
             <div className="banner-wrapper">
-              <img alt="Banner " src={podcast.bannerImage} />
+              <img alt="Banner" src={podcast.bannerImage} />
             </div>
             <p className="podcast-description">{podcast.description}</p>
-            <h1 className="podcast-title-heading">Episodes</h1>
+            <h1 className="podcast-title-heading ">Episodes</h1>
+            {episodes.length > 0 ? (
+              <>
+                {episodes.map((episode, index) => {
+                  return (
+                    <Episodedetail
+                      key={index}
+                      index={index + 1}
+                      title={episode.title}
+                      description={episode.description}
+                      audioFile={episode.audioFile}
+                      onClick={(file) => setPlayingFile(file)}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <p>No Episodes</p>
+            )}
           </>
         )}
       </div>
+      {playingFile && (
+        <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} />
+      )}
     </div>
   );
 }

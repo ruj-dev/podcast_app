@@ -5,14 +5,18 @@ import { useDispatch } from 'react-redux';
 import Button from '../components/Button';
 import InputComponent from "../components/Input";
 import FileInput from "../components/FileComponent/FileComponent";
+import { toast } from 'react-toastify';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { db,auth, storage } from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
+
 
 function CreateAnEpisode() {
      const { id } = useParams();
      const [title, setTitle] = useState("");
      const [desc, setDesc] = useState("");
      const [audioFile, setAudioFile] = useState();
-
-     const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
      const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,9 +25,44 @@ function CreateAnEpisode() {
     setAudioFile(file);
   };
 
-  const handleSubmit = {
+  const handleSubmit = async () => {
+    setLoading(true);
+    if ((title, desc, audioFile, id)) {
+      try {
+        const audioRef = ref(
+          storage,
+          `podcast-episodes/${auth.currentUser.uid}/${Date.now()}`
+        );
+        await uploadBytes(audioRef, audioFile);
+         const audioURL = await getDownloadURL(audioRef);
+             const episodeData = {
+               title: title,
+               description: desc,
+               audioFile: audioURL,
+        };
+           await addDoc(
+             collection(db, "podcasts", id, "episodes"),
+             episodeData
+           );
+           toast.success("Episode Created Successfully");
+           setLoading(false);
+           navigate(`/podcast/${id}`);
+        
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
+        setLoading(false);
+      }
+    }
+    else {
+      toast.error("Please fill all the values");
+      setLoading(false);
+      
+    }
+
 
   }
+  
   return (
     <div>
       <Header />

@@ -89,12 +89,12 @@ function CreateAPodcastForm() {
       <FileComponent
         accept={"image/*"}
         id="banner-image-input"
-        filehandlefn={bannerHandleFnc}
+        filehandlefnc={bannerHandleFnc}
       ></FileComponent>
       <FileComponent
         accept={"image/*"}
         id="display-image-input"
-        filehandlefn={displayHandleFnc}
+        filehandlefnc={displayHandleFnc}
       ></FileComponent>
       <Button text="Create a podcast" onClick={handleCreatePodcast}></Button>
     </>

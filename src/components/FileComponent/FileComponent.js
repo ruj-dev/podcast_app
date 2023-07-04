@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-function FileComponent({ accept, id, filehandlefn }) {
+function FileComponent({ accept, id, filehandlefnc }) {
   const [fileSelected,setFileSelected] = useState("");
   const onChange = (e) => {
     console.log(e.target.files);
     setFileSelected(e.target.files[0].name);
-    filehandlefn(e.target.files[0]);
+    filehandlefnc(e.target.files[0]);
   }
   return (
     <>
