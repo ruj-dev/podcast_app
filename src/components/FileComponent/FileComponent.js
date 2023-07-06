@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function FileComponent({ accept, id, fileHandleFnc }) {
+function FileComponent({ accept, id, fileHandleFnc,text }) {
   const [fileSelected, setFileSelected] = useState("");
   const onChange = (e) => {
     console.log(e.target.files);
@@ -12,7 +12,7 @@ function FileComponent({ accept, id, fileHandleFnc }) {
       <label className="custom-input" htmlFor={id}>
         {fileSelected
           ? `The File ${fileSelected} is Selected`
-          : "Import Banner Image"}
+          : text}
       </label>
       <input
         type="file"

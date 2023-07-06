@@ -32,7 +32,7 @@ function PodcastDetailPage() {
 
           if (docSnap.exists()) {
               console.log("Document data:", docSnap.data());
-              toast.success("podcasts successfully");
+              
             setPodcast({ id: id, ...docSnap.data() });
           } else {
             // docSnap.data() will be undefined in this case
