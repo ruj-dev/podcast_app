@@ -5,8 +5,12 @@ import Button from '../components/Button';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import Loader from '../components/Loader';
 function Profile() {
   const user = useSelector((state) => state.user.user);
+  if (!user) {
+    return <Loader />;
+  }
   const handleLogout = () => {
     signOut(auth)
       .then(() => {

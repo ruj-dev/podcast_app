@@ -64,7 +64,9 @@ useEffect(() => {
     unsubscribe();
   };
 }, [id]);
-  
+  const remove = () => { 
+    setPlayingFile("");
+  }
   return (
     <div>
       <Header />
@@ -119,7 +121,7 @@ useEffect(() => {
         )}
       </div>
       {playingFile && (
-        <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} />
+        <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} remove={remove } />
       )}
     </div>
   );

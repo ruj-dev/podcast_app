@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { auth,db} from "../../firebase";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateAPodcastForm() {
@@ -13,6 +14,8 @@ function CreateAPodcastForm() {
   const [desc, setDesc] = useState("");
   const [displayImage, setDisplayImage] = useState();
   const [bannerImage, setBannerImage] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const bannerHandleFnc = (file) => {
     setBannerImage(file);
   };
@@ -22,6 +25,7 @@ function CreateAPodcastForm() {
   const handleCreatePodcast = async () => {
     try {
       if (title && desc && bannerImage && displayImage) {
+        setLoading(true);
         const storage = getStorage();
         const storageRef = ref(
           storage,
@@ -61,11 +65,15 @@ function CreateAPodcastForm() {
           displayImageUrl
         );
         toast.success("File uploaded successfully");
+         setLoading(false);
+        navigate("/podcasts");
       } else {
         toast.error("Please fill all the values");
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
+       setLoading(false);
     }
   };
 
@@ -89,14 +97,20 @@ function CreateAPodcastForm() {
       <FileComponent
         accept={"image/*"}
         id="banner-image-input"
-        filehandlefnc={bannerHandleFnc}
+        fileHandleFnc={bannerHandleFnc}
+        text={"Display Image Upload"}
       ></FileComponent>
       <FileComponent
         accept={"image/*"}
         id="display-image-input"
-        filehandlefnc={displayHandleFnc}
+        fileHandleFnc={displayHandleFnc}
+        text={"Banner Image Upload"}
       ></FileComponent>
-      <Button text="Create a podcast" onClick={handleCreatePodcast}></Button>
+      <Button
+        text={loading ? "Loading..." : "Create Podcast"}
+        disabled={loading}
+        onClick={handleCreatePodcast}
+      ></Button>
     </>
   );
 }

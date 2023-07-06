@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 
-function FileComponent({ accept, id, filehandlefnc }) {
-  const [fileSelected,setFileSelected] = useState("");
+function FileComponent({ accept, id, fileHandleFnc }) {
+  const [fileSelected, setFileSelected] = useState("");
   const onChange = (e) => {
     console.log(e.target.files);
     setFileSelected(e.target.files[0].name);
-    filehandlefnc(e.target.files[0]);
-  }
+    fileHandleFnc(e.target.files[0]);
+  };
   return (
     <>
-      <label className='custom-input' htmlFor={id}>{fileSelected?`The File ${fileSelected} is Selected`:"Import Banner Image"}</label>
+      <label className="custom-input" htmlFor={id}>
+        {fileSelected
+          ? `The File ${fileSelected} is Selected`
+          : "Import Banner Image"}
+      </label>
       <input
         type="file"
         accept={accept}

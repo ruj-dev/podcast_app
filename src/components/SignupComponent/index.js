@@ -14,11 +14,13 @@ function SignUpForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
    const navigate = useNavigate();
   const handleSignup = async () => {
        
-    console.log("Signup");
+    
+    setLoading(true);
     if (
       password == confirmPassword &&
       password.length >= 6 &&
@@ -45,14 +47,15 @@ function SignUpForm() {
                 uid: user.uid,
               })
         );
-         toast.success(
-           "Signup successfull"
-         );
+        toast.success("User has been created!");
+         setLoading(false);
         navigate("/profile");
+       
 
       } catch (error) {
-      
+      setLoading(false);
         console.log("error", error);
+        toast.error(error.message);
       }
     }
     else {
@@ -67,12 +70,10 @@ function SignUpForm() {
          );
 
       }
+      setLoading(false);
     }
 
-
-    
-    
-    };
+};
   
     return (
       <div>
@@ -104,7 +105,11 @@ function SignUpForm() {
           type="password"
           required={true}
         />
-        <Button text="Signup" onClick={handleSignup} />
+        <Button
+          text={loading ? "Loading..." : "Signup"}
+          disabled={loading}
+          onClick={handleSignup}
+        />
       </div>
     );
 }

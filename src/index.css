@@ -63,7 +63,7 @@ font-family: 'Inter', sans-serif;
  .podcasts-flex{
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap:1rem;
   flex-wrap: wrap;
  }
@@ -95,4 +95,13 @@ font-family: 'Inter', sans-serif;
  .podcast-title-heading {
    text-align: left !important;
    width: 100%;
+ }
+
+ .my-element {
+   text-decoration: none!important;
+ }
+ body{
+  
+      text-decoration: none !important;
+  
  }

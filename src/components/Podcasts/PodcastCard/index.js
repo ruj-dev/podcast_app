@@ -13,7 +13,7 @@ function PodcastsCard({id,title, displayImage }) {
           alt="podcast"
           src={displayImage}
         />
-        <p className='title-podcast'>{title}</p>
+        <p className="title-podcast my-element">{title}</p>
       </div>
     </Link>
   );

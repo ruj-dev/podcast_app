@@ -7,14 +7,16 @@ import { doc, getDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../../slices/userSlice";
+import { toast } from 'react-toastify';
 
 function LoginCom() {
-   
+    const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
-      const dispatch = useDispatch();
-      const navigate = useNavigate();
-    const handleLogin = async() => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+  const handleLogin = async () => {
+       setLoading(true);
       console.log("Login");
       try {
         
@@ -43,12 +45,12 @@ function LoginCom() {
       
         
       } catch (error) {
-        
+        setLoading(false);
+        toast.error(error.message);
       }
     };
   return (
     <div>
-    
       <InputCom
         state={email}
         setState={setEmail}
@@ -63,8 +65,12 @@ function LoginCom() {
         type="password"
         required={true}
       />
-     
-      <Button text="Login" onClick={handleLogin} />
+
+      <Button
+        text={loading ? "Loading..." : "Login"}
+        onClick={handleLogin}
+        disabled={loading}
+      />
     </div>
   );
 }
